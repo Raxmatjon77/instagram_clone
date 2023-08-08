@@ -16,8 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+scheme_view=get_schema_view(
+    openapi.Info(
+        title='Instagram Clone (Raxmatjon Hamidov)',
+        default_version='v1',
+        discription='Instagram Project',
+        terms_of_service='demo.com',
+        contact=openapi.Contact(email='raxmatjonhamidov242@gmail.com'),
+        license=openapi.License(name='Super license(Issued by KHamidovs)'),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny,]
+)
 
 urlpatterns = [
+    #swagger
+    path('', scheme_view.with_ui(
+        'swagger', cache_timeout=0), name='swagger-swagger-ui'),
+
+
     path('admin/', admin.site.urls),
     path('users/',include('users.urls')),
     path('post/',include("post.urls")),

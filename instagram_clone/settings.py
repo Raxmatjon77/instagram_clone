@@ -8,7 +8,7 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+import  os
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 SECRET_KEY = config('SECRET_KEY')
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'phonenumbers',
     'twilio',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 
     'users',
     'shared',
@@ -135,14 +136,11 @@ WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("DB_NAME"),
-        "USER": config('USER'),
-        "PASSWORD": config("PASSWORD"),
-        "HOST": config("HOST"),
-        "PORT": config("PORT")
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -177,12 +175,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+# STATICFILES_DIRS='/static/'
+# STATIC_ROOT=os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS=[
+    BASE_DIR/'static'
+]
+STATIC_URL = '/static/'
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
-
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='users.User'
+LOGIN_URL='login'

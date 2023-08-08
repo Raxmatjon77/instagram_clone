@@ -13,6 +13,7 @@ djangorestframework-simplejwt = "*"
 twilio = "*"
 django-restframework = "*"
 phonenumbers = "*"
+drf-yasg = "*"
 
 [dev-packages]
 

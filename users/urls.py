@@ -5,7 +5,7 @@ from django.urls import path
 
 
 urlpatterns=[
-    path('login/',LoginView.as_view()),
+    path('login/',LoginView.as_view(),name='login'),
     path('logout/',LogoutView.as_view()),
     path('signup/',CreateUserView.as_view()),
     path('verify/',VerifyApiView.as_view()),
